@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<title>Box Platform + Azure B2C</title>
+
+	<!-- CSS -->
+
+	<!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/css/mdb.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/11.0.0/en-US/explorer.css" />
+	<style>
+
+	#app-container, #signoutDiv, #loadingDiv
+	{
+		display: none;
+	}
+	</style>
+
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.11/js/mdb.min.js"></script>
+<!-- BOX JS-->
+
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Intl"></script>
+
+<script src="https://cdn01.boxcdn.net/platform/elements/11.0.0/en-US/explorer.js"></script>
+
+</head>
+
+<body  onload="onLoad()">
+	<div class="navbar-wrapper">
+		<div class="container">
+  
+				  <nav class="navbar navbar-expand-lg sticky-top navbar-dark  blue-gradient">
+			<div class="container">
+			  
+			  <div id="navbar" class="navbar-collapse collapse">
+					<ul class="navbar-nav mr-auto">
+								  <li class="nav-item active"><a class="nav-link waves-effect waves-light" href="#">Home</a></li>
+				  <li class="nav-item" id = "loginLink">
+						<a class="nav-link waves-effect waves-light" id="signInButton" href="javascript:void(0)" title="Sign in">Log in/Register</a>
+  
+				</ul>
+			  </div>
+			</div>
+		  </nav>
+		</div>
+	  </div>
+  
+	  <div style="margin:auto;width:50%;">
+		  		  <div id = "boxUI">
+				  <div id = "app-container" style="width:80%;"></div>
+			  </div>
+		  <section class="view">
+			  <div class="row">
+				  <div class="col-md-6">
+					  <div class="d-flex flex-column  h-100">
+						  <h3 class="heading display-4">Welcome to the Azure B2C and Box Platform Demo</h3>
+						  <p class="subheading" id="mainMsg1">Shows Azure B2C integration with Box platform and app users.
+						  </p>
+						  <h4 class="subheading" id="mainMsg"></h4>
+						  <div>
+								<p id="statusNotAuth" title="Status">
+									Login or register to continue
+								</p>
+								<p id="statusAuth" title="Status">
+									You have Signed-In
+								</p>
+							</div>
+					  </div>
+  
+				  </div>
+  
+				  <div class="col-md-6">
+						<a href="#" id="popreg">
+								[ Register Diagram |
+							</a>
+							<a href="#" id="poplog">
+								Login Diagram ]
+							</a>
+					  <div class="view">
+						  <img src="https://pchristensenb.github.io/Template/sidebar-image.jpeg" class="img-fluid" alt="smaple image">
+						  <div class="mask flex-center gradient">
+						  </div>
+					  </div>
+  
+				  </div>
+  
+			  </div>
+  
+		  </section>
+		</div>
+		<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					  <div class="modal-content">
+						<div class="modal-header">
+						  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						</div>
+						<div class="modal-body" style="background:white;">
+						  <img src="" style="margin-left:-400px;margin-top:-100px;" id="imagepreview" >
+						</div>
+					
+					  </div>
+				</div>
+			</div>
+	<script>
+function showBoxUI(boxAccessToken) {
+	console.log("tok:" + boxAccessToken.accessToken)
+	$(".view").hide();
+	var folderId = '0';
+	var contentExplorer = new Box.ContentExplorer();
+	contentExplorer.show(folderId, boxAccessToken.accessToken, {
+			container: '#app-container',
+			logoUrl: 'box'
+	})
+	
+
+	$("#app-container").show();
+	$("#myModal").toggle();
+}
+	// Operations when the web page is loaded.
+	function onLoad() {
+		$("#imagemodal").toggle();
+
+		$("#popreg").on("click", function() {
+   			$('#imagepreview').attr('src', '/img/register.png'); 
+   			$('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+		});
+		$("#poplog").on("click", function() {
+   			$('#imagepreview').attr('src', '/img/login.png'); 
+   			$('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+		});
+	
+
+	}
+
+		
+	</script>
+</body>
+</html>

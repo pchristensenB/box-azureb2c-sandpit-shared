@@ -1,1 +1,1 @@
-# box-azureb2c-sandpit-shared
+# box-azureb2c-sandpit
